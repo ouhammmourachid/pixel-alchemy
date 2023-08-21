@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from PixelAlchemy.settings import SECRET_KEY
 
-from .models import Tokens, User
+from .models import Token, User
 from .permissions import IsAuthenticated
 from .serializers import UserSerializer
 
@@ -48,7 +48,7 @@ class LoginView(APIView):
         )
 
         # save the token in the token tables
-        token_obj, created = Tokens.objects.get_or_create(user=user)
+        token_obj, created = Token.objects.get_or_create(user=user)
         token_obj.token = token
         token_obj.save()
 
@@ -87,7 +87,7 @@ class LogoutView(APIView):
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             user_id = payload['id']
             user = User.objects.get(pk=user_id)
-            token_obj = Tokens.objects.get(user=user)
+            token_obj = Token.objects.get(user=user)
             token_obj.delete()
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')

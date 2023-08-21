@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 from PixelAlchemy.settings import SECRET_KEY
 
-from .models import Tokens, User
+from .models import Token, User
 
 
 class IsAdminUser(permissions.BasePermission):
@@ -42,9 +42,13 @@ class IsAuthenticated(permissions.BasePermission):
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             user_id = payload['id']
             user = User.objects.get(pk=user_id)
-            token_obj = Tokens.objects.get(user=user)
-            print(token_obj.token)
-            print(token)
+            token_obj = Token.objects.get(user=user)
             return token_obj.token == token
         except jwt.ExpiredSignatureError:
             return False
+
+
+class IsOwnerOf(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        return False

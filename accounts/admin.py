@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Tokens, User
+from .models import Token, User
 
 admin.site.register(User)
-admin.site.register(Tokens)
+admin.site.register(Token)
