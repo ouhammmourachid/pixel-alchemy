@@ -28,7 +28,7 @@ class Image(models.Model):
     userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Image {self.id}'
+        return f'Image : {str(self.imagePath).split("/")[-1]}'
 
     def delete(self, *args, **kwargs):
         """Remove the image file from the filesystem"""
