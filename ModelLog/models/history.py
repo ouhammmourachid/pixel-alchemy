@@ -8,10 +8,12 @@ from .operation import Operation
 
 class History(models.Model):
     id = models.AutoField(primary_key=True)  # noqa:A003
-    userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     resultImage = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='result_image_histories')
-    operationId = models.ForeignKey(Operation, on_delete=models.CASCADE)
+    operation = models.ForeignKey(Operation, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Log-n°{self.id}-{self.timestamp}-{self.operationId.id}'
+        return f"""
+        Log n° : {self.id} - {self.timestamp} - made by user {self.user_id} with operation {self.operation_id}
+        """

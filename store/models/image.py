@@ -25,10 +25,10 @@ class Image(models.Model):
     # Add other image fields here
     tags = models.ManyToManyField(Tag, blank=True)
 
-    userId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Image : {str(self.imagePath).split("/")[-1]}'
+        return f'Image n° : {self.id} - {str(self.imagePath).split("/")[-1]}'
 
     def delete(self, *args, **kwargs):
         """Remove the image file from the filesystem"""

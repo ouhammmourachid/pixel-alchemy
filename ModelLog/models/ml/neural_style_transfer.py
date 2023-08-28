@@ -21,10 +21,8 @@ class NeuralStyleTransfer:
         image_path = tensor_to_image(stylized_image, content_image_path, styled_image_path)
         new_image = Image(
             imagePath=image_path,
-            description=f"""
-            this is a stylized image produced using {content_image_path} and {styled_image_path}
-            """,
-            userId=user
+            description=f'this is a stylized image produced using {content_image_path} and {styled_image_path}',
+            user=user
         )
         new_image.save()
         return new_image

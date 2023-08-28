@@ -15,4 +15,6 @@ class Operation(models.Model):
     )
 
     def __str__(self):
-        return f'Operation : {self.operation} On Image {self.firstImage} and Image {self.secondImage}'
+        return f"""
+        Operation n° : {self.id} - {self.operation} On Image {self.firstImage_id} and Image {self.secondImage_id}
+        """

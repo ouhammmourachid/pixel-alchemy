@@ -22,6 +22,6 @@ class StyleOperationView(APIView):
             secondImage_id=data_dict.get('styledId')
         )
         operation.save()
-        history = History(userId=user, resultImage=stylized_image, operationId=operation)
+        history = History(user=user, resultImage=stylized_image, operation=operation)
         history.save()
         return Response(serializer.data)

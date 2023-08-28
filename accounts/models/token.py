@@ -10,4 +10,4 @@ class Token(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.token
+        return f'Token n° : {self.id} - {self.token} made by user {self.user_id}'
