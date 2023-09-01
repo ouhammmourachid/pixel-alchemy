@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'store',
+    'ModelLog',
 ]
 
 MIDDLEWARE = [
@@ -106,3 +107,5 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+WEIGHTS_DIR = MEDIA_ROOT / 'weights/'
