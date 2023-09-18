@@ -54,4 +54,4 @@ class SuperResolutionModel:
         return super_resolution_image
 
 
-super_resolution_model = SuperResolutionModel('srresnet')
+super_resolution_model = SuperResolutionModel('srgan')

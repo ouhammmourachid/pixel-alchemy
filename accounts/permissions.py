@@ -9,7 +9,7 @@ from .models import Token, User
 class IsAdminUser(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        token = request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization')
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
@@ -22,7 +22,7 @@ class IsAdminUser(permissions.BasePermission):
 class IsClientUser(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        token = request.COOKIES.get('jwt')
+        token = request.headers.get('Authorization')
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
@@ -36,7 +36,7 @@ class IsAuthenticated(permissions.BasePermission):
 
     def has_permission(self, request, view):
         try:
-            token = request.COOKIES.get('jwt')
+            token = request.headers.get('Authorization')
             if not token:
                 return False
             payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
