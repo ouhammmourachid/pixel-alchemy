@@ -2,7 +2,8 @@ import os
 
 import jwt
 from django.conf import settings
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, HttpResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
@@ -86,3 +87,23 @@ class ImageCRUDView(APIView):
             return Response(serializer.data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ImageDownload(APIView):
+    # permission_classes = [IsAuthenticated]
+    def get(self, request, image_id):
+        image = get_object_or_404(Image, pk=image_id)
+        image_file = image.imagePath
+        with open(image_file.path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='image/jpeg')
+            response['Content-Disposition'] = f'attachment; filename="{image.imagePath}.jpg"'
+            return response
+
+
+class ImageInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, image_id):
+        image_info = Image.objects.filter(id=image_id).first()
+        serializer = ImageSerializer(image_info)
+        return Response(serializer.data)

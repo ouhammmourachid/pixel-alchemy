@@ -6,6 +6,8 @@ urlpatterns = [
     # image model
     path('image', ImageUploadView.as_view(), name='upload-image'),
     path('image/<int:image_id>', ImageCRUDView.as_view(), name='crud-image'),
+    path('download/image/<int:image_id>', ImageDownload.as_view(), name='download-image'),
+    path('image/info/<int:image_id>', ImageInfoView.as_view(), name='get-image-information'),
 
     # tag model
     path('tag', TagList.as_view(), name='tag-list'),
@@ -15,6 +17,7 @@ urlpatterns = [
     path('comment', CommentList.as_view(), name='comment-list'),
     path('comment/<int:pk>', CommentDetail.as_view(), name='comment-detail'),
     path('comment/count/<int:image_id>', CommentCount.as_view(), name='count-the-number-of-comments'),
+    path('comment/image/<int:image_id>', CommentImage.as_view(), name='comment-on-image'),
 
     # like model
     path('like', LikeList.as_view(), name='like-list'),

@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from accounts.permissions import IsAuthenticated
 
-from ..models import Comment
+from ..models import Comment, Image
 from ..serializers import CommentSerializer
 
 
@@ -38,3 +38,15 @@ class CommentCount(APIView):
     def get(self, request, image_id):
         comment_count = Comment.objects.filter(image_id=image_id).count()
         return Response({'numberComments': comment_count})
+
+
+class CommentImage(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, image_id):
+        image = Image.objects.filter(id=image_id).count()
+        if image:
+            comments = Comment.objects.filter(image_id=image_id)
+            serializer = CommentSerializer(comments, many=True)
+            return Response(serializer.data)
+        return Response([])
