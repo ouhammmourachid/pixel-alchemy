@@ -1,12 +1,15 @@
 import os
 
+import jwt
 from django.conf import settings
 from django.http import FileResponse, Http404
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accounts.permissions import IsAuthenticated
+from PixelAlchemy.settings import SECRET_KEY
 
 from ..models import Image
 from ..serializers import ImageSerializer
@@ -15,7 +18,7 @@ from ..serializers import ImageSerializer
 class ImageUploadView(APIView):
 
     def get_permissions(self):
-        if self.request.method in ['POST', 'PUT', 'DELETE']:
+        if self.request.method in ['POST', 'PUT', 'DELETE', 'GET']:
             return [IsAuthenticated()]
         return []
 
@@ -25,6 +28,22 @@ class ImageUploadView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, format=None):  # noqa
+        mine_param = request.GET.get('mine')
+        all_images = []
+        if mine_param == '1':
+            token = request.headers.get('Authorization')
+            try:
+                payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            except jwt.ExpiredSignatureError:
+                raise AuthenticationFailed('Unauthenticated!')
+
+            all_images = Image.objects.filter(user_id=payload['id'])
+        else:
+            all_images = Image.objects.filter(isPrivate=False)
+        serializer = ImageSerializer(all_images, many=True)
+        return Response(serializer.data)
 
 
 class ImageCRUDView(APIView):

@@ -1,4 +1,8 @@
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from accounts.permissions import IsAuthenticated
 
 from ..models import Comment
 from ..serializers import CommentSerializer
@@ -26,3 +30,11 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+
+class CommentCount(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, image_id):
+        comment_count = Comment.objects.filter(image_id=image_id).count()
+        return Response({'numberComments': comment_count})

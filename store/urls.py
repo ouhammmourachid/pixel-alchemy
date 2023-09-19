@@ -14,8 +14,12 @@ urlpatterns = [
     # comment model
     path('comment', CommentList.as_view(), name='comment-list'),
     path('comment/<int:pk>', CommentDetail.as_view(), name='comment-detail'),
+    path('comment/count/<int:image_id>', CommentCount.as_view(), name='count-the-number-of-comments'),
 
     # like model
     path('like', LikeList.as_view(), name='like-list'),
     path('like/<int:pk>', LikeDetail.as_view(), name='like-detail'),
+    path('is-liked/<int:image_id>', IsLikedByUser.as_view(), name='is-image-liked-by-user'),
+    path('dislike/<int:image_id>', DisLikeImage.as_view(), name='dislike-image'),
+    path('like/count/<int:image_id>', CountLike.as_view(), name='count-the-number-of-likes'),
 ]

@@ -77,6 +77,15 @@ class UserView(APIView):
         return Response(serializer.data)
 
 
+class UserNameView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = User.objects.filter(id=user_id).first()
+        print(user.name)
+        return Response({'username': user.name})
+
+
 class LogoutView(APIView):
 
     def get(self, request):
