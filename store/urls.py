@@ -8,6 +8,7 @@ urlpatterns = [
     path('image/<int:image_id>', ImageCRUDView.as_view(), name='crud-image'),
     path('download/image/<int:image_id>', ImageDownload.as_view(), name='download-image'),
     path('image/info/<int:image_id>', ImageInfoView.as_view(), name='get-image-information'),
+    path('change-visibilty/image/<int:image_id>', ChangeImageVisible.as_view(), name='change-the-visibility-image'),
 
     # tag model
     path('tag', TagList.as_view(), name='tag-list'),

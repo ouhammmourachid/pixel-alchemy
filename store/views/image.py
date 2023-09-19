@@ -107,3 +107,13 @@ class ImageInfoView(APIView):
         image_info = Image.objects.filter(id=image_id).first()
         serializer = ImageSerializer(image_info)
         return Response(serializer.data)
+
+
+class ChangeImageVisible(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, image_id):
+        image = Image.objects.filter(id=image_id).first()
+        image.isPrivate = not image.isPrivate
+        image.save()
+        return Response({'message': 'you have changed the visibility of the image successfully.'})
