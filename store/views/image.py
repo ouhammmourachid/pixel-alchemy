@@ -108,6 +108,18 @@ class ImageInfoView(APIView):
         serializer = ImageSerializer(image_info)
         return Response(serializer.data)
 
+    def put(self, request, image_id):
+        try:
+            image = Image.objects.get(pk=image_id)
+        except Image.DoesNotExist:
+            return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if request.data:
+            image.description = request.data.get('description')
+            image.save()
+            return Response({'message': 'updated the description of image successfully.'})
+        return Response({'error': 'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ChangeImageVisible(APIView):
     permission_classes = [IsAuthenticated]
