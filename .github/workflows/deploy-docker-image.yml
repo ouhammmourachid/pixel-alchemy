@@ -21,7 +21,7 @@ jobs:
     - name: Build the Docker image
       run: |
         make build
-        docker tag pixel-alchemy-app rachidouhammou/pixel-alchemy:$(date +%s)
+        docker tag pixel-alchemy-app rachidouhammou/pixel-alchemy
 
     - name: Docker Push
       run: docker push rachidouhammou/pixel-alchemy
