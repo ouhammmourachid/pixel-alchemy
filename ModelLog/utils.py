@@ -19,7 +19,7 @@ def tensor_to_image(tensor, first_image_path, second_image_path):
     second_base_filename, _ = os.path.splitext(second_image_path.split('/')[-1])
 
     # create a new name and the save the image in the media file
-    new_file_name = f'{timestamp}+{first_base_filename}+{second_base_filename}'
+    new_file_name = f'image-{timestamp}'
     img_path = os.path.join(settings.MEDIA_ROOT, f'images/{new_file_name}.png')
     img.save(img_path)
     return f'images/{new_file_name}.png'
