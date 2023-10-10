@@ -42,8 +42,8 @@ class SuperResolutionModel:
         if was_grayscale:
             sr = ImageOps.grayscale(sr)
         # save the image
-        image_name = image_path.split('/')[-1]
-        new_image_name = f'images/{timestamp}-super-resolution-of-{image_name}'
+        image_extension = image_path.split('.')[-1]
+        new_image_name = f'images/image-{timestamp}{image_extension}'
         img_path = os.path.join(settings.MEDIA_ROOT, new_image_name)
         sr.save(img_path)
 

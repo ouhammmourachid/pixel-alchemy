@@ -11,7 +11,7 @@ def image_upload_path(instance, filename):
     """this function allow as to create the file name as combination of the timestamp and the original name"""
     timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
     base_filename, file_extension = os.path.splitext(filename)
-    new_filename = f'{timestamp}_{base_filename}{file_extension}'
+    new_filename = f'image-{timestamp}{file_extension}'
     return f'images/{new_filename}'
 
 
