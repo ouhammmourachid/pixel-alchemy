@@ -1,9 +1,10 @@
+name: Docker Image CIv
 
-jobs:
-name: Docker Image CI
 on:
   push:
-    branches: [ deploy-using-docker]
+    branches:
+      - "main"
+
 jobs:
   build:
     runs-on: ubuntu-latest
