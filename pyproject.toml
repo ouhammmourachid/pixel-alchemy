@@ -21,6 +21,9 @@ tensorflow-hub = "^0.14.0"
 numpy = "^1.25.2"
 tensorflow = "^2.13.0"
 django-cors-headers = "^4.2.0"
+psycopg2 = "^2.9.9"
+channels = "^4.0.0"
+whitenoise = "^6.5.0"
 
 
 [tool.poetry.group.dev.dependencies]
