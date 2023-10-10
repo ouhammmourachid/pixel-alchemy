@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/pixel-alchemy:latest
+          tags: ${{ secrets.DOCKER_USER }}/pixel-alchemy:latest, ${{ secrets.DOCKER_USER }}/pixel-alchemy:${{ steps.git_commit.outputs.hash }}
