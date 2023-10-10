@@ -28,5 +28,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USER }}/pixel-alchemy:v0.0.2
+            ${{ secrets.DOCKER_USER }}/pixel-alchemy:v0.0.${{ github.run_number}}
             ${{ secrets.DOCKER_USER }}/pixel-alchemy:latest
